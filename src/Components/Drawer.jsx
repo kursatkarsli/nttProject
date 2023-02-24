@@ -1,8 +1,9 @@
 import React from "react";
 import { Box } from "@mui/system";
 import { DrawerContent } from "./DrawerContent";
+import { Drawer } from "@mui/material";
 
-export const Drawer = (props) => {
+export const DrawerComponent = React.memo((props) => {
     const { window, handleDrawerToggle, mobileOpen } = props;
     const container = window !== undefined ? () => window().document.body : undefined;
     const drawerWidth = 240;
@@ -28,4 +29,4 @@ export const Drawer = (props) => {
     </Drawer>
   </Box>
 );
-}
+})

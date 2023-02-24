@@ -1,57 +1,69 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { navItems } from 'assets/data/NavItems';
-import { Drawer } from './Drawer';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { navItems } from "assets/data/NavItems";
+import { DrawerComponent } from "./Drawer";
+import { Logo } from "assets/svg/appLogo";
+import { Grid } from "@mui/material";
+import AutoCompleteComponent from "./Autocomplete";
+import { Search } from "@mui/icons-material";
 
 function Header() {
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const handleDrawerToggle = React.useCallback(() => {
-        setMobileOpen((prevState) => !prevState);
-      }, []);
-
+  const handleDrawerToggle = React.useCallback(() => {
+    setMobileOpen((prevState) => !prevState);
+  }, []);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar >
+      <AppBar component="nav" position="sticky" sx={{ backgroundColor: "transparent" }}>
+        <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuIcon
+              sx={{
+                color: "black",
+              }}
+            />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          <Grid
+            container
+            display={"flex"}
+            justifyContent='space-evenly'
+            alignItems='center'
+            sx={{ display: { xs: "none", sm: "flex" } }}
           >
-            MUI
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
-          </Box>
+            <Grid item xs={2}>
+              <Logo />
+            </Grid>
+            <Grid item xs={5}>
+                <AutoCompleteComponent />
+            </Grid>
+            <Grid item xs={3}>
+              <Button variant="contained" sx={{paddingInline:'2rem'}}><Search /></Button>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
-                <Drawer handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
-     
+      <DrawerComponent
+        handleDrawerToggle={handleDrawerToggle}
+        mobileOpen={mobileOpen}
+      />
     </Box>
-    )
+  );
 }
 
-export default Header
+export default Header;
