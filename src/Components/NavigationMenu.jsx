@@ -63,8 +63,8 @@ function NavigationMenu() {
           id={"PopOver"}
           open={anchorEl}
           hideBackdrop={true}
-          disablePortal
           anchorEl={anchorEl}
+          onBlur={()=> setAnchorEl(null) }
           onClose={handleClose}
           anchorOrigin={{
             vertical: "bottom",
