@@ -23,7 +23,6 @@ function NavigationMenu() {
     else if (event.currentTarget.innerWidth < 600 && navItems.navItems.length<3) return setNavItems((prev) => ({
       currentItems: Items.slice(0, 2), navItems: Items.slice(-6, -1)
     }))
-    console.log(navItems)
   })
   useEffect(() => {
     if (window.innerWidth < 900 && window.innerWidth > 600 && navItems.navItems.length === 0) return setNavItems((prev) => ({
