@@ -16,6 +16,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  styled,
   TextField,
 } from "@mui/material";
 import FooterLogo from "../assets/images/FooterLogo.png";
@@ -24,15 +25,18 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
+const CustomGridFirstChild = styled(Grid)(({ theme, child }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display:'none'
+  }
+  
+}))
+const CustomGridSecondChild = styled(Grid)(({ theme, child }) => ({
+  [theme.breakpoints.down('lg')]: {
+    display:'none'
+  }
+  
+}))
 export default function Footer() {
   return (
     <Card
@@ -45,11 +49,11 @@ export default function Footer() {
       <Grid
         container
         display={"flex"}
-        justifyContent="space-around"
+        justifyContent={{lg:"space-around", xs:'space-between'}}
         alignItems={"center"}
         sx={{ padding: 5 }}
       >
-        <Grid item display={"flex"} direction="column">
+        <Grid item display={"flex"} direction="column" child='second'>
           <CardMedia
             src={FooterLogo}
             component="img"
@@ -108,7 +112,7 @@ export default function Footer() {
             </Button>
           </CardActions>
         </Grid>
-        <Grid item>
+        <CustomGridFirstChild item>
           <Typography variant="h6">Title</Typography>
           <List sx={{ width: "100%", maxWidth: 360 }}>
             {[1, 2, 3, 4].map((value) => (
@@ -121,8 +125,8 @@ export default function Footer() {
               </ListItem>
             ))}
           </List>
-        </Grid>
-        <Grid item>
+        </CustomGridFirstChild>
+        <CustomGridSecondChild item >
           <Typography variant="h6">Title</Typography>
           <List sx={{ width: "100%", maxWidth: 360 }}>
             {[1, 2, 3, 4].map((value) => (
@@ -135,8 +139,8 @@ export default function Footer() {
               </ListItem>
             ))}
           </List>
-        </Grid>{" "}
-        <Grid item>
+        </CustomGridSecondChild>{" "}
+        <CustomGridSecondChild item >
           <Typography variant="h6">Title</Typography>
           <List sx={{ width: "100%", maxWidth: 360 }}>
             {[1, 2, 3, 4].map((value) => (
@@ -149,7 +153,7 @@ export default function Footer() {
               </ListItem>
             ))}
           </List>
-        </Grid>
+        </CustomGridSecondChild>
       </Grid>
       <Divider sx={{backgroundColor:'white'}} />
 

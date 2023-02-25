@@ -3,15 +3,13 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import { addToFav } from "features/counter/counterSlice";
+
 
 export default function CardComponent({ item,handleAddToFav }) {
-  const { title, price, content, subTitle, isFavorite,  } = item;
+  const { name, price, description, shippingMethod, isFavorite, imageUrl } = item;
 
   return (
     <Card sx={{ maxWidth: 300, padding: "10px", color: "#00254F" }}>
@@ -27,20 +25,20 @@ export default function CardComponent({ item,handleAddToFav }) {
           sx={{
             height: 140,
           }}
-          image="https://source.unsplash.com/random/"
+          image={imageUrl}
           title="green iguana"
         />
       </Box>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {title}
+          {name}
         </Typography>
         <Typography variant="subtitle2">{price}</Typography>
-        <Typography variant="body2">{content}</Typography>
+        <Typography variant="body2">{description}</Typography>
       </CardContent>
       <CardActions>
         <Typography variant="body2" color="text.secondary">
-          {subTitle}
+          {shippingMethod}
         </Typography>
       </CardActions>
     </Card>

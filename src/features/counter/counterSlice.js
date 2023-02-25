@@ -1,90 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   fav: [],
-  cardItems: [
-    {
-      id: 0,
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-    {
-      id: 1,
-
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-    {
-      id: 2,
-
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-    {
-      id: 3,
-
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-    {
-      id: 4,
-
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-    {
-      id: 5,
-
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-    {
-      id: 6,
-
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-    {
-      id: 7,
-
-      title: "Product Name",
-      price: 1999,
-      content:
-        "Lorem ipsum dolor sit amet consectetur. Turpis dolor vulputate velit id sit leo aliquet id at. Vel tellus tempus lacus tristique nulla pretium erat duis.",
-      subTitle: "Ücretsiz - Aynı gün kargo",
-      isFavorite: false,
-    },
-  ],
+  cardItems: [],
   isShowFav: false,
+  slicedItems:[]
 };
+export const getCardData = createAsyncThunk('getCardData', async () => {
+  try {
+    const response = await axios.get("https://honey-badgers-ecommerce.glitch.me/products");
+    console.log(response);
+    return response.data
+  } catch (error) {
+    
+  }
+})
 
 export const counterSlice = createSlice({
   name: "counter",
@@ -98,7 +29,7 @@ export const counterSlice = createSlice({
       state.cardItems = state.cardItems.map((item) => {
         return item.id === action.payload.id
           ? { ...item, isFavorite: !item.isFavorite }
-          : { ...item };
+          : { ...item, isFavorite:false };
       });
       if(state.fav.length === 0 ) state.isShowFav = false
 
@@ -106,7 +37,13 @@ export const counterSlice = createSlice({
     showFav: (state) => {
       state.isShowFav = !state.isShowFav;
     },
+
   },
+  extraReducers:{
+    [getCardData.fulfilled]: (state, action) => {
+     state.cardItems = action.payload
+    }
+  }
 });
 export const { addToFav,showFav } = counterSlice.actions;
 export default counterSlice.reducer;

@@ -1,6 +1,6 @@
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
-import { addToFav, showFav } from "features/counter/counterSlice";
+import { addToFav, getCardData, showFav } from "features/counter/counterSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardComponent from "./CardComponent";
@@ -8,20 +8,17 @@ import CardComponent from "./CardComponent";
 function Content() {
   const dispatch = useDispatch();
 
-  const { cardItems, fav, isShowFav } = useSelector((state) => state.counter);
-  const [items, setItems] = useState(cardItems.slice(0, 4));
+  const { cardItems, fav, isShowFav } = useSelector((state) => {
+    return state.counter
+  });
+  const [sliceNumber, setSliceNumber] = useState(4);
   const handleClick = () => {
-    setItems(cardItems);
-  };
-  useEffect(() => {
-    if (items.length < 8) setItems(cardItems.slice(0, 4));
-    else setItems(cardItems);
-  }, [cardItems]);
-    const handleShowFavorite = () => {
-      dispatch(showFav())
-    setItems(fav);
+    setSliceNumber((prev)=> prev + 4)
   };
 
+    const handleShowFavorite = () => {
+      dispatch(showFav())
+  };
   return (
     <Grid container padding={"1rem 7rem;"} display={"flex"} flexWrap={"wrap"}>
       <Grid item xs={12}>
@@ -48,7 +45,7 @@ function Content() {
           flexWrap={"wrap"}
         >
           {!isShowFav
-            ? items.map((item) => (
+            ? cardItems && cardItems.slice(0,sliceNumber).map((item) => (
                 <CardComponent
                   item={item}
                   handleAddToFav={() => dispatch(addToFav(item))}
@@ -67,7 +64,7 @@ function Content() {
           variant="contained"
           onClick={handleClick}
           sx={{
-            display: items.length === 8 || isShowFav ? "none" : "inline-flex",
+            display: sliceNumber > cardItems.length || isShowFav ? "none" : "inline-flex",
           }}
         >
           Daha Fazla
