@@ -5,17 +5,17 @@ const initialState = {
   fav: [],
   cardItems: [],
   isShowFav: false,
-  slicedItems:[]
+  slicedItems: [],
 };
-export const getCardData = createAsyncThunk('getCardData', async () => {
+export const getCardData = createAsyncThunk("getCardData", async () => {
   try {
-    const response = await axios.get("https://honey-badgers-ecommerce.glitch.me/products");
+    const response = await axios.get(
+      "https://honey-badgers-ecommerce.glitch.me/products"
+    );
     console.log(response);
-    return response.data
-  } catch (error) {
-    
-  }
-})
+    return response.data;
+  } catch (error) {}
+});
 
 export const counterSlice = createSlice({
   name: "counter",
@@ -29,21 +29,19 @@ export const counterSlice = createSlice({
       state.cardItems = state.cardItems.map((item) => {
         return item.id === action.payload.id
           ? { ...item, isFavorite: !item.isFavorite }
-          : { ...item, isFavorite:false };
+          : { ...item, isFavorite: item.isFavorite };
       });
-      if(state.fav.length === 0 ) state.isShowFav = false
-
+      if (state.fav.length === 0) state.isShowFav = false;
     },
     showFav: (state) => {
       state.isShowFav = !state.isShowFav;
     },
-
   },
-  extraReducers:{
+  extraReducers: {
     [getCardData.fulfilled]: (state, action) => {
-     state.cardItems = action.payload
-    }
-  }
+      state.cardItems = action.payload.map(item => ({...item, isFavorite:false}));
+    },
+  },
 });
-export const { addToFav,showFav } = counterSlice.actions;
+export const { addToFav, showFav } = counterSlice.actions;
 export default counterSlice.reducer;

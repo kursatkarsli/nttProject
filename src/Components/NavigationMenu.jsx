@@ -79,7 +79,6 @@ function NavigationMenu() {
             },
           }}
         >
-       
           {navItems.navItems.map(({ label }) => (
             <span>
               {label} <br />
