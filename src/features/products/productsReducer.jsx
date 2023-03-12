@@ -17,8 +17,8 @@ export const getCardData = createAsyncThunk("getCardData", async () => {
   } catch (error) {}
 });
 
-export const counterSlice = createSlice({
-  name: "counter",
+export const ProductsReducer = createSlice({
+  name: "ProductsReducer",
   initialState,
   reducers: {
     addToFav: (state, action) => {
@@ -43,5 +43,5 @@ export const counterSlice = createSlice({
     },
   },
 });
-export const { addToFav, showFav } = counterSlice.actions;
-export default counterSlice.reducer;
+export const { addToFav, showFav } = ProductsReducer.actions;
+export default ProductsReducer.reducer;

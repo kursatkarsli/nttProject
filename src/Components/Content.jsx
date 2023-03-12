@@ -1,6 +1,6 @@
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
-import { addToFav, getCardData, showFav } from "features/counter/counterSlice";
+import { addToFav, getCardData, showFav } from "features/products/productsReducer";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardComponent from "./CardComponent";
