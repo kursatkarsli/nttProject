@@ -19,7 +19,6 @@ function Content() {
     const handleShowFavorite = () => {
       dispatch(showFav())
   };
-  console.log('CARD ITEMS', cardItems)
   return (
     <Grid container padding={"1rem 7rem;"} display={"flex"} flexWrap={"wrap"}>
       <Grid item xs={12}>
