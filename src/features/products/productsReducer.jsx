@@ -18,7 +18,7 @@ export const getCardData = createAsyncThunk("getCardData", async () => {
 });
 
 export const ProductsReducer = createSlice({
-  name: "ProductsReducer",
+  name: "products",
   initialState,
   reducers: {
     addToFav: (state, action) => {
