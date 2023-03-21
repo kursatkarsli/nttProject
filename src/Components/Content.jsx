@@ -8,7 +8,6 @@ function Content() {
   const dispatch = useDispatch();
 
   const { cardItems, fav, isShowFav } = useSelector((state) => {
-    console.log('STATE', state)
     return state.productsReducer
   });
   const [sliceNumber, setSliceNumber] = useState(4);
